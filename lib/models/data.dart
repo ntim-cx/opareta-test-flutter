@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:opareta_test/models/quote.dart';
 
 class Data {
@@ -13,22 +15,22 @@ class Data {
   String lastUpdated;
   String dateAdded;
   List<String> tags;
-  Map<String, Quote> quote;
+  Map<String, Quote> quote = {};
 
   Data(
       {id,
-        name,
-        symbol,
-        slug,
-        cmcRank,
-        numMarketPairs,
-        circulatingSupply,
-        totalSupply,
-        maxSupply,
-        lastUpdated,
-        dateAdded,
-        tags,
-        quote});
+      name,
+      symbol,
+      slug,
+      cmcRank,
+      numMarketPairs,
+      circulatingSupply,
+      totalSupply,
+      maxSupply,
+      lastUpdated,
+      dateAdded,
+      tags,
+      quote});
 
   Data.fromJson(Map<String, dynamic> json) {
     id = json['id'];
@@ -44,7 +46,10 @@ class Data {
     dateAdded = json['date_added'];
     tags = json['tags'].cast<String>();
     if (json['quote'] != null) {
-      quote = json['quote'] as Map<String, Quote>;
+      (json['quote'] as Map<String, dynamic>).forEach((key, value) {
+        log("$key");
+        quote[key] = Quote.fromJson(value);
+      });
     }
   }
 

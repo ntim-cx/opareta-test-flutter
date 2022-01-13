@@ -23,13 +23,13 @@ class Quote {
         lastUpdated});
 
   Quote.fromJson(Map<String, dynamic> json) {
-    price = json['price'];
+    price = double.parse(json['price'].toString());
     volume24h = json['volume_24h'];
     volumeChange24h = json['volume_change_24h'];
     percentChange1h = json['percent_change_1h'];
     percentChange24h = json['percent_change_24h'];
     percentChange7d = json['percent_change_7d'];
-    marketCap = json['market_cap'];
+    marketCap = double.parse(json['market_cap'].toString());
     marketCapDominance = json['market_cap_dominance'];
     fullyDilutedMarketCap = json['fully_diluted_market_cap'];
     lastUpdated = json['last_updated'];

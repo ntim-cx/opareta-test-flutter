@@ -1,40 +1,69 @@
+import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:opareta_test/constants/api.dart';
 import 'package:opareta_test/constants/app_string.dart';
+import 'package:opareta_test/models/api_response.dart';
+import 'package:opareta_test/models/crypto_response.dart';
 import 'package:opareta_test/models/data.dart';
+import 'package:opareta_test/providers/BaseCryptoCurrencyProvider.dart';
+import 'package:opareta_test/services/http.services.dart';
 
-class CryptoCurrencyProvider with ChangeNotifier{
 
-  List<Data> cryptoData;
-  String amount ;
-  String selectedCurrency;
-  bool isLoading;
 
-  initProvider(){
-    cryptoData =[];
-    amount ="0";
-    selectedCurrency = AppString.currencyList.first;
-    index();
+
+class CryptoCurrencyProvider extends BaseCryptoCurrencyProvider {
+  TextEditingController amountCtrl = TextEditingController();
+  // Variables
+  String selectedOption, amount;
+  List<Data> list, liveList;
+  var http = HttpService();
+
+  @override
+  initProvider() async {
+    reset();
+    return super.initProvider();
   }
 
-  index(){
+  @override
+  reset() {
+    list = [];
+    liveList =[];
+    amount = "1";
+    amountCtrl.text = amount;
+    selectedOption = AppString.currencyList.first;
+  }
+
+  @override
+  Future index() async {
     String url = "${Api.baseUrl}${Api.getCrypto}";
-    setUIState(true);
+    WidgetsBinding.instance.addPostFrameCallback(
+      (_) => setUiState(UiState.loading),
+    );
+    var params = {"limit": 20};
+    var response = await http.get(url, queryParameters: params);
+    setUiState(UiState.done);
+    var apiResponse = ApiResponse.parse(response);
+    log(apiResponse.code.toString());
 
-    setUIState(false);
-
+    if (apiResponse.success) {
+      var data = apiResponse.mappedData;
+      var cryptoResponse = CryptoResponse.fromJson(data);
+      if (cryptoResponse != null && cryptoResponse.data != null) {
+        liveList = cryptoResponse.data;
+      }
+    }
   }
 
-  onChangeCurrency(String val){
-    selectedCurrency = val;
+  onChangeCurrency(String val) {
+    selectedOption = val;
+    getCryptoList();
     notifyListeners();
   }
 
-  setUIState(bool loading){
-    isLoading = loading;
+  void getCryptoList() {
+    amount = amountCtrl.text;
+    list = liveList;
     notifyListeners();
   }
-
-
 }

@@ -1,5 +1,5 @@
 class AppString{
 
-  static const List<String> currencyList = ["UGX, USD,EUR"];
+  static const List<String> currencyList = ["UGX", "USD","EUR"];
 
 }

@@ -24,6 +24,7 @@ class CurrencyWidget extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
                 symbol,
@@ -34,6 +35,7 @@ class CurrencyWidget extends StatelessWidget {
             ],
           ),
           Column(
+            crossAxisAlignment: CrossAxisAlignment.end,
             children: [
               Text(
                 getCryptoValue(quote, double.parse(amount)).toString(),
