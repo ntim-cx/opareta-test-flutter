@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:opareta_test/models/status.dart';
 
 import 'data.dart';
@@ -38,4 +40,15 @@ class CryptoResponse {
     }
     return data;
   }
+
+  Map<String, String>  encodeJson(CryptoResponse cryptoResponse){
+    return {
+      'response': jsonEncode(cryptoResponse.toJson())
+    };
+  }
+
+  static CryptoResponse decodeJson(Map res){
+    return CryptoResponse.fromJson(jsonDecode(res[CryptoFields.response]));
+  }
+
 }

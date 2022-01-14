@@ -35,7 +35,7 @@ CREATE TABLE $tableCrypto (
   Future<int> insertCrypto(CryptoResponse cryptoResponse) async {
     final db = await database;
 
-    final id = await db.insert(tableCrypto, cryptoResponse.toJson());
+    final id = await db.insert(tableCrypto, cryptoResponse.encodeJson(cryptoResponse));
     return id;
   }
 
@@ -47,7 +47,7 @@ CREATE TABLE $tableCrypto (
     );
 
     if (maps.isNotEmpty) {
-      return CryptoResponse.fromJson(maps.last);
+      return CryptoResponse.decodeJson(maps.last);
     } else {
       throw Exception('No item not found');
     }

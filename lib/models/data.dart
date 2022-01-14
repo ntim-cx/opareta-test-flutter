@@ -65,6 +65,7 @@ class Data {
     data['date_added'] = dateAdded;
     data['tags'] = tags;
     if (quote != null) {
+      data["quote"] = {};
       quote.forEach((key, value) {
         data["quote"][key] = value.toJson();
       });
