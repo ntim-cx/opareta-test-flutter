@@ -22,13 +22,12 @@ class SqlService {
 
   Future _createDB(Database db, int version) async {
     const idType = 'INTEGER PRIMARY KEY AUTOINCREMENT';
-    const response = 'TEXT NOT NULL';
+    const responseType = 'TEXT NOT NULL';
 
     await db.execute('''
 CREATE TABLE $tableCrypto ( 
   ${CryptoFields.id} $idType, 
-  ${CryptoFields.response} $response,
- 
+  ${CryptoFields.response} $responseType
   )
 ''');
   }

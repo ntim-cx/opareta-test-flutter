@@ -31,6 +31,7 @@ class CryptoCurrencyProvider extends BaseCryptoCurrencyProvider {
       this.getFromLocal = getFromLocal;
       notifyListeners();
     });
+    getFromLocal = internetAccess.hasInternetConnection;
     index();
     return super.initProvider();
   }
