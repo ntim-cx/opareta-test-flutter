@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:intl/intl.dart';
 
 
 class Utils {
@@ -9,6 +10,12 @@ class Utils {
 
   static Widget horizontalSpacer({double space = 20.0}) {
     return SizedBox(width: space);
+  }
+
+  static String formatDateTime(String dateTime,) {
+    DateTime parsedDateTime = DateTime.parse(dateTime);
+    String format = "yyyy-MM-ddThh:mm:ss";
+    return DateFormat(format).format(parsedDateTime);
   }
 
 }

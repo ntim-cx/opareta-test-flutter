@@ -9,11 +9,9 @@ import 'package:opareta_test/models/data.dart';
 import 'package:opareta_test/providers/BaseCryptoCurrencyProvider.dart';
 import 'package:opareta_test/services/http.services.dart';
 
-
-
-
 class CryptoCurrencyProvider extends BaseCryptoCurrencyProvider {
   TextEditingController amountCtrl = TextEditingController();
+
   // Variables
   String selectedOption, amount;
   List<Data> list, liveList;
@@ -22,13 +20,14 @@ class CryptoCurrencyProvider extends BaseCryptoCurrencyProvider {
   @override
   initProvider() async {
     reset();
+    index();
     return super.initProvider();
   }
 
   @override
   reset() {
     list = [];
-    liveList =[];
+    liveList = [];
     amount = "1";
     amountCtrl.text = amount;
     selectedOption = AppString.currencyList.first;
@@ -40,7 +39,7 @@ class CryptoCurrencyProvider extends BaseCryptoCurrencyProvider {
     WidgetsBinding.instance.addPostFrameCallback(
       (_) => setUiState(UiState.loading),
     );
-    var params = {"limit": 20};
+    var params = {"limit": 20, "convert": AppString.currencies};
     var response = await http.get(url, queryParameters: params);
     setUiState(UiState.done);
     var apiResponse = ApiResponse.parse(response);
@@ -63,6 +62,9 @@ class CryptoCurrencyProvider extends BaseCryptoCurrencyProvider {
 
   void getCryptoList() {
     amount = amountCtrl.text;
+    if (amount == null || amount.isEmpty) {
+      amount = "0";
+    }
     list = liveList;
     notifyListeners();
   }

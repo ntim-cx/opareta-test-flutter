@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:opareta_test/constants/utils.dart';
 import 'package:opareta_test/models/quote.dart';
 
 class CurrencyWidget extends StatelessWidget {
@@ -28,9 +29,12 @@ class CurrencyWidget extends StatelessWidget {
             children: [
               Text(
                 symbol,
+                style:
+                    const TextStyle(fontSize: 18, fontWeight: FontWeight.w600),
               ),
               Text(
                 name,
+                style: const TextStyle(fontSize: 12),
               )
             ],
           ),
@@ -38,10 +42,13 @@ class CurrencyWidget extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.end,
             children: [
               Text(
-                getCryptoValue(quote, double.parse(amount)).toString(),
+                getCryptoValue(quote, double.parse(amount)).toStringAsFixed(5),
+                style:
+                    const TextStyle(fontSize: 18, fontWeight: FontWeight.w600),
               ),
               Text(
-                quote.lastUpdated,
+                Utils.formatDateTime(quote.lastUpdated),
+                style: const TextStyle(fontSize: 12),
               )
             ],
           )
@@ -51,6 +58,6 @@ class CurrencyWidget extends StatelessWidget {
   }
 
   double getCryptoValue(Quote quote, double amount) {
-    return quote.price * amount;
+    return (quote.price * amount);
   }
 }
