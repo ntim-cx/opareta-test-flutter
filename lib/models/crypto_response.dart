@@ -2,6 +2,16 @@ import 'package:opareta_test/models/status.dart';
 
 import 'data.dart';
 
+class CryptoFields {
+  static final List<String> values = [
+    /// Add all fields
+    id, response,
+  ];
+
+  static const String id = '_id';
+  static const String response = 'response';
+}
+
 class CryptoResponse {
   Status status;
   List<Data> data;
@@ -29,6 +39,3 @@ class CryptoResponse {
     return data;
   }
 }
-
-
-

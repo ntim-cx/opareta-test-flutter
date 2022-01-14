@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:opareta_test/models/quote.dart';
 
 class Data {
@@ -47,7 +45,6 @@ class Data {
     tags = json['tags'].cast<String>();
     if (json['quote'] != null) {
       (json['quote'] as Map<String, dynamic>).forEach((key, value) {
-        log("$key");
         quote[key] = Quote.fromJson(value);
       });
     }
@@ -67,7 +64,11 @@ class Data {
     data['last_updated'] = lastUpdated;
     data['date_added'] = dateAdded;
     data['tags'] = tags;
-    //quote.map((key, value) => data['quote'] as Map<>.add({key, value.toJson()}));
+    if (quote != null) {
+      quote.forEach((key, value) {
+        data["quote"][key] = value.toJson();
+      });
+    }
     return data;
   }
 }

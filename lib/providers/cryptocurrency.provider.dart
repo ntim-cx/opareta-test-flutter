@@ -3,19 +3,22 @@ import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:opareta_test/constants/api.dart';
 import 'package:opareta_test/constants/app_string.dart';
+import 'package:opareta_test/constants/utils.dart';
 import 'package:opareta_test/models/api_response.dart';
 import 'package:opareta_test/models/crypto_response.dart';
 import 'package:opareta_test/models/data.dart';
 import 'package:opareta_test/providers/BaseCryptoCurrencyProvider.dart';
 import 'package:opareta_test/services/http.services.dart';
+import 'package:opareta_test/services/sql.service.dart';
 
 class CryptoCurrencyProvider extends BaseCryptoCurrencyProvider {
   TextEditingController amountCtrl = TextEditingController();
 
   // Variables
   String selectedOption, amount;
-  List<Data> list, liveList;
+  List<Data> list, liveList, localList;
   var http = HttpService();
+  var sqlService = SqlService();
 
   @override
   initProvider() async {
@@ -50,8 +53,19 @@ class CryptoCurrencyProvider extends BaseCryptoCurrencyProvider {
       var cryptoResponse = CryptoResponse.fromJson(data);
       if (cryptoResponse != null && cryptoResponse.data != null) {
         liveList = cryptoResponse.data;
+        sqlService.insertCrypto(cryptoResponse);
       }
     }
+  }
+
+  getNotesFromLocal() async {
+    var res = await sqlService.readCrypto();
+    bool isValid = Utils.checkDataValidity(res.status.timestamp);
+    if (isValid) {
+      localList = res.data;
+      return;
+    }
+    localList = [];
   }
 
   onChangeCurrency(String val) {

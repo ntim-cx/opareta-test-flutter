@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:intl/intl.dart';
 
-
 class Utils {
   static Widget verticalSpacer({double space = 20.0}) {
     return SizedBox(height: space);
@@ -12,10 +11,18 @@ class Utils {
     return SizedBox(width: space);
   }
 
-  static String formatDateTime(String dateTime,) {
+  static String formatDateTime(
+    String dateTime,
+  ) {
     DateTime parsedDateTime = DateTime.parse(dateTime);
     String format = "yyyy-MM-ddThh:mm:ss";
     return DateFormat(format).format(parsedDateTime);
   }
 
+  static bool checkDataValidity(String timestamp) {
+    DateTime parsedDateTime = DateTime.parse(timestamp);
+    DateTime currentTime = DateTime.now();
+    var diff = currentTime.difference(parsedDateTime).inSeconds;
+    return diff < 60;
+  }
 }
