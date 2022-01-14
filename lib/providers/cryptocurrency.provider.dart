@@ -1,6 +1,7 @@
 import 'dart:developer';
 
 import 'package:flutter/material.dart';
+import 'package:opareta_test/config/internet_access.dart';
 import 'package:opareta_test/constants/api.dart';
 import 'package:opareta_test/constants/app_string.dart';
 import 'package:opareta_test/constants/utils.dart';
@@ -19,10 +20,17 @@ class CryptoCurrencyProvider extends BaseCryptoCurrencyProvider {
   List<Data> list, liveList, localList;
   var http = HttpService();
   var sqlService = SqlService();
+  bool getFromLocal;
+
+  var internetAccess = InternetAccess.getInstance();
 
   @override
   initProvider() async {
     reset();
+    internetAccess.initialize((bool getFromLocal) {
+      this.getFromLocal = getFromLocal;
+      notifyListeners();
+    });
     index();
     return super.initProvider();
   }
@@ -58,7 +66,7 @@ class CryptoCurrencyProvider extends BaseCryptoCurrencyProvider {
     }
   }
 
-  getNotesFromLocal() async {
+  getCryptoFromLocal() async {
     var res = await sqlService.readCrypto();
     bool isValid = Utils.checkDataValidity(res.status.timestamp);
     if (isValid) {
@@ -68,18 +76,31 @@ class CryptoCurrencyProvider extends BaseCryptoCurrencyProvider {
     localList = [];
   }
 
-  onChangeCurrency(String val) {
-    selectedOption = val;
-    getCryptoList();
-    notifyListeners();
+  getCryptoFromApi() async {
+    await index();
+    if (liveList != null && liveList.isNotEmpty) {
+      list = liveList;
+    } else {
+      await getCryptoFromLocal();
+    }
   }
 
-  void getCryptoList() {
+  void getCryptoList() async {
     amount = amountCtrl.text;
     if (amount == null || amount.isEmpty) {
       amount = "0";
     }
-    list = liveList;
+    if (getFromLocal) {
+      await getCryptoFromLocal();
+    } else {
+      await getCryptoFromApi();
+    }
+    notifyListeners();
+  }
+
+  onChangeCurrency(String val) {
+    selectedOption = val;
+    getCryptoList();
     notifyListeners();
   }
 }

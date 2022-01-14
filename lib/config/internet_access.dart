@@ -1,5 +1,10 @@
+import 'dart:async';
+import 'dart:io';
+
+import 'package:connectivity_plus/connectivity_plus.dart';
+
 class InternetAccess {
-  /*static final InternetAccess _singleton = new InternetAccess._internal();
+  static final InternetAccess _singleton = new InternetAccess._internal();
 
   InternetAccess._internal();
 
@@ -8,10 +13,13 @@ class InternetAccess {
 
   StreamController connectionChangeController = StreamController();
   final Connectivity _connectivity = Connectivity();
-  final router = locator<RouterService>();
+  Function action;
 
-  void initialize() {
+  //final router = locator<RouterService>();
+
+  void initialize(Function function) {
     hasInternetInternetConnection();
+    action = function;
     _connectivity.onConnectivityChanged.listen((_connectionChange));
   }
 
@@ -30,8 +38,10 @@ class InternetAccess {
       try {
         final result = await InternetAddress.lookup('example.com');
         if (result.isNotEmpty && result[0].rawAddress.isNotEmpty) {
-          if (hasInternetConnection != null && !hasInternetConnection)
-            router.goBack();
+          if (hasInternetConnection != null && !hasInternetConnection) {
+            // Todo use internet to get crypto results
+            action(!hasInternetConnection);
+          }
           hasInternetConnection = true;
           //router.goBack();
           //print(true);
@@ -58,8 +68,10 @@ class InternetAccess {
   }
 
   routeToNoConnection() {
-    if (hasInternetConnection != null && hasInternetConnection)
-      router.navigateTo(AppRoutes.noInternetRoute);
+    if (hasInternetConnection != null && hasInternetConnection) {
+      //todo use local storage when getting crypto
+      action(!hasInternetConnection);
+    }
     hasInternetConnection = false;
-  }*/
+  }
 }
