@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:intl/intl.dart';
@@ -23,6 +25,7 @@ class Utils {
     DateTime parsedDateTime = DateTime.parse(timestamp);
     DateTime currentTime = DateTime.now();
     var diff = currentTime.difference(parsedDateTime).inSeconds;
-    return diff < 60;
+    log(diff.toString());
+    return diff < 6000000;
   }
 }
