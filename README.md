@@ -1,4 +1,5 @@
-# opareta_test
+# Exchange rate application thats has saves rate offline to have current rate
+
 
 A new Flutter project.
 
