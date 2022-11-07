@@ -7,14 +7,14 @@ import 'package:opareta_test/shared_widgets/shimmer.widget.dart';
 import 'package:provider/src/provider.dart';
 
 class HomeScreen extends StatefulWidget {
-  const HomeScreen({Key key}) : super(key: key);
+  const HomeScreen({Key? key}) : super(key: key);
 
   @override
   _HomeScreenState createState() => _HomeScreenState();
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  CryptoCurrencyProvider vm;
+  late CryptoCurrencyProvider vm;
 
   @override
   void initState() {
@@ -29,14 +29,14 @@ class _HomeScreenState extends State<HomeScreen> {
 
     final button = MaterialButton(
       onPressed: vm.getCryptoList,
-      child: Text("Calculate"),
+      child: const Text("Calculate"),
     );
 
     final dropdown = Flexible(
         flex: 1,
         child: Container(
           color: Colors.grey.shade400,
-          padding: EdgeInsets.symmetric(horizontal: 8),
+          padding: const EdgeInsets.symmetric(horizontal: 8),
           child: DropdownButton(
             underline: Container(),
             isExpanded: true,
@@ -71,7 +71,7 @@ class _HomeScreenState extends State<HomeScreen> {
             ),
             hintText: "Amount",
             enabledBorder: InputBorder.none,
-            border:InputBorder.none,
+            border: InputBorder.none,
             contentPadding: const EdgeInsets.symmetric(
               vertical: 10,
               horizontal: 10.0,
@@ -81,7 +81,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
     final currencyList = Expanded(
       child: ListView.builder(
-        itemCount: vm.isLoading ? 10 : vm.list?.length ?? 0,
+        itemCount: vm.isLoading ? 10 : vm.list.length,
         itemBuilder: (ctx, index) {
           return vm.isLoading
               ? const ShimmerWidget()

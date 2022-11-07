@@ -14,11 +14,15 @@ class Utils {
   }
 
   static String formatDateTime(
-    String dateTime,
+    String? dateTime,
   ) {
-    DateTime parsedDateTime = DateTime.parse(dateTime);
-    String format = "yyyy-MM-ddThh:mm:ss";
-    return DateFormat(format).format(parsedDateTime);
+    if (dateTime != null) {
+      DateTime parsedDateTime = DateTime.parse(dateTime);
+      String format = "yyyy-MM-ddThh:mm:ss";
+      return DateFormat(format).format(parsedDateTime);
+    } else {
+      return 'Date cannot be formatted';
+    }
   }
 
   static bool checkDataValidity(String timestamp) {

@@ -2,9 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:shimmer/shimmer.dart';
 
 class ShimmerWidget extends StatelessWidget {
-
   const ShimmerWidget({
-    Key key,
+    Key? key,
   }) : super(key: key);
 
   @override
@@ -15,7 +14,6 @@ class ShimmerWidget extends StatelessWidget {
       child: _buildList(context),
     );
   }
-
 
   Widget _buildList(BuildContext context) {
     double width = MediaQuery.of(context).size.width;

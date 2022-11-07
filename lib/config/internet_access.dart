@@ -4,7 +4,7 @@ import 'dart:io';
 import 'package:connectivity_plus/connectivity_plus.dart';
 
 class InternetAccess {
-  static final InternetAccess _singleton = new InternetAccess._internal();
+  static final InternetAccess _singleton =  InternetAccess._internal();
 
   InternetAccess._internal();
 
@@ -38,7 +38,7 @@ class InternetAccess {
       try {
         final result = await InternetAddress.lookup('example.com');
         if (result.isNotEmpty && result[0].rawAddress.isNotEmpty) {
-          if (hasInternetConnection != null && !hasInternetConnection) {
+          if (!hasInternetConnection) {
             // Todo use internet to get crypto results
             action(!hasInternetConnection);
           }
@@ -68,7 +68,7 @@ class InternetAccess {
   }
 
   routeToNoConnection() {
-    if (hasInternetConnection != null && hasInternetConnection) {
+    if (hasInternetConnection) {
       //todo use local storage when getting crypto
       action(!hasInternetConnection);
     }

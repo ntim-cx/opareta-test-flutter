@@ -3,7 +3,9 @@ import 'package:flutter/material.dart';
 enum UiState { idle, loading, done, error }
 
 class BaseCryptoCurrencyProvider with ChangeNotifier {
-  Future index(){}
+  Future<void>? index() {
+    return null;
+  }
 
   void initProvider() {}
 

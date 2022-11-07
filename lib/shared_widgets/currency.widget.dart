@@ -8,12 +8,12 @@ class CurrencyWidget extends StatelessWidget {
   final Quote quote;
 
   const CurrencyWidget(
-      {Key key,
-      this.quote,
-      this.symbol,
-      this.name,
-      this.amount,
-      this.backgroundColor})
+      {Key? key,
+      required this.quote,
+      required this.symbol,
+      required this.name,
+      required this.amount,
+      required this.backgroundColor})
       : super(key: key);
 
   @override
@@ -58,6 +58,6 @@ class CurrencyWidget extends StatelessWidget {
   }
 
   double getCryptoValue(Quote quote, double amount) {
-    return (quote.price * amount);
+    return quote.price != null ? (quote.price! * amount) : 0.0;
   }
 }

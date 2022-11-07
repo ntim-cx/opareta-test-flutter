@@ -99,9 +99,11 @@ class CryptoCurrencyProvider extends BaseCryptoCurrencyProvider {
     notifyListeners();
   }
 
-  onChangeCurrency(String val) {
-    selectedOption = val;
-    getCryptoList();
-    notifyListeners();
+  onChangeCurrency(String? val) {
+    if (val != null) {
+      selectedOption = val;
+      getCryptoList();
+      notifyListeners();
+    }
   }
 }

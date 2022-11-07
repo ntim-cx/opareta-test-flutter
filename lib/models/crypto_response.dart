@@ -15,8 +15,8 @@ class CryptoFields {
 }
 
 class CryptoResponse {
-  Status status;
-  List<Data> data;
+  Status? status;
+  List<Data>? data;
 
   CryptoResponse({status, data});
 
@@ -25,7 +25,7 @@ class CryptoResponse {
     if (json['data'] != null) {
       data = <Data>[];
       json['data'].forEach((v) {
-        data.add(Data.fromJson(v));
+        data?.add(Data.fromJson(v));
       });
     }
   }
@@ -33,22 +33,19 @@ class CryptoResponse {
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = <String, dynamic>{};
     if (status != null) {
-      data['status'] = status.toJson();
+      data['status'] = status?.toJson();
     }
-    if (data != null) {
-      data['data'] = this.data.map((v) => v.toJson()).toList();
+    if (this.data != null) {
+      data['data'] = this.data?.map((v) => v.toJson()).toList();
     }
     return data;
   }
 
-  Map<String, String>  encodeJson(CryptoResponse cryptoResponse){
-    return {
-      'response': jsonEncode(cryptoResponse.toJson())
-    };
+  Map<String, String> encodeJson(CryptoResponse cryptoResponse) {
+    return {'response': jsonEncode(cryptoResponse.toJson())};
   }
 
-  static CryptoResponse decodeJson(Map res){
+  static CryptoResponse decodeJson(Map res) {
     return CryptoResponse.fromJson(jsonDecode(res[CryptoFields.response]));
   }
-
 }

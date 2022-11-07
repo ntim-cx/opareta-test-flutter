@@ -2,11 +2,11 @@ class ApiResponse {
   List get data => body["data"];
   Map get mappedData => body;
 
-  bool get success => errors.isEmpty;
-  int code;
-  String message;
+  bool? get success => errors?.isEmpty;
+  int? code;
+  String? message;
   dynamic body;
-  List errors;
+  List? errors;
 
   ApiResponse({
     this.code,

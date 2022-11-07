@@ -1,9 +1,9 @@
 class Status {
-  String timestamp;
-  int errorCode;
+  String? timestamp;
+  int? errorCode;
 
-  int elapsed;
-  int creditCount;
+  int? elapsed;
+  int? creditCount;
 
   Status({
     timestamp,

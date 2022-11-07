@@ -1,26 +1,26 @@
 class Quote {
-  double price;
-  int volume24h;
-  double volumeChange24h;
-  double percentChange1h;
-  double percentChange24h;
-  double percentChange7d;
-  double marketCap;
-  int marketCapDominance;
-  double fullyDilutedMarketCap;
-  String lastUpdated;
+  double? price;
+  int? volume24h;
+  double? volumeChange24h;
+  double? percentChange1h;
+  double? percentChange24h;
+  double? percentChange7d;
+  double? marketCap;
+  int? marketCapDominance;
+  double? fullyDilutedMarketCap;
+  String? lastUpdated;
 
   Quote(
       {price,
-        volume24h,
-        volumeChange24h,
-        percentChange1h,
-        percentChange24h,
-        percentChange7d,
-        marketCap,
-        marketCapDominance,
-        fullyDilutedMarketCap,
-        lastUpdated});
+      volume24h,
+      volumeChange24h,
+      percentChange1h,
+      percentChange24h,
+      percentChange7d,
+      marketCap,
+      marketCapDominance,
+      fullyDilutedMarketCap,
+      lastUpdated});
 
   Quote.fromJson(Map<String, dynamic> json) {
     price = double.parse(json['price'].toString());

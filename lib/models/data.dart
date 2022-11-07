@@ -1,18 +1,18 @@
 import 'package:opareta_test/models/quote.dart';
 
 class Data {
-  int id;
-  String name;
-  String symbol;
-  String slug;
-  int cmcRank;
-  int numMarketPairs;
-  int circulatingSupply;
-  int totalSupply;
-  int maxSupply;
-  String lastUpdated;
-  String dateAdded;
-  List<String> tags;
+  int? id;
+  String? name;
+  String? symbol;
+  String? slug;
+  int? cmcRank;
+  int? numMarketPairs;
+  int? circulatingSupply;
+  int? totalSupply;
+  int? maxSupply;
+  String? lastUpdated;
+  String? dateAdded;
+  List<String>? tags;
   Map<String, Quote> quote = {};
 
   Data(
